@@ -1,18 +1,27 @@
-const API = "http://localhost:8000";
+const API = "http://127.0.0.1:8000";
 
-export async function createWallet() {
-  const res = await fetch(`${API}/wallet/create`, { method: "POST" });
+export async function setValue(secret, value) {
+  const res = await fetch(
+    `${API}/contract/set?secret_key=${secret}&value=${value}`,
+    { method: "POST" }
+  );
+
+  if (!res.ok) {
+    throw new Error("Set failed");
+  }
+
   return res.json();
 }
 
-export async function fundWallet(publicKey) {
-  const res = await fetch(`${API}/wallet/fund?public_key=${publicKey}`, {
-    method: "POST",
-  });
-  return res.json();
-}
+export async function getValue(secret) {
+  const res = await fetch(
+    `${API}/contract/get?secret_key=${secret}`,
+    { method: "POST" }
+  );
 
-export async function getBalance(publicKey) {
-  const res = await fetch(`${API}/wallet/balance?public_key=${publicKey}`);
+  if (!res.ok) {
+    throw new Error("Get failed");
+  }
+
   return res.json();
 }
