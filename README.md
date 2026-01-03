@@ -1,6 +1,6 @@
 # StellarPay 🚀
 
-A minimal full‑stack demo app built on the **Stellar Testnet**, showcasing wallet creation, funding, XLM payments, balance checks, and Soroban smart‑contract interactions — wrapped in a clean, minimal dark UI.
+A full‑stack app built on the **Stellar Testnet**, showcasing wallet creation, funding, **XLM payments**, balance checks, and Soroban smart‑contract interactions — wrapped in a clean, minimal dark UI.
 
 ---
 
@@ -96,7 +96,7 @@ http://localhost:5173
 ```
 ### 🧪 Demo Flow
 ```bash
-Wallet → Create
+1. Wallet → Create
 
 Create wallet in‑app
 
@@ -106,7 +106,7 @@ Wallet → Fund
 
 Fund wallet via Friendbot (Testnet)
 
-Balance
+2. Balance
 
 Paste public key → view balances
 
@@ -116,9 +116,9 @@ Paste sender secret key
 
 Paste destination public key
 
-Send XLM
+3. Send XLM
 
-Soroban
+4. Soroban
 
 Use secret key
 
@@ -127,37 +127,25 @@ Set a value
 Get stored value from contract
 ```
 ### ⚠️ Notes
-
-1. Runs only on Stellar Testnet
-
-2. Secret keys are exposed for demo purposes
-
-3. Do NOT use mainnet keys
-
-4. Freighter support is optional
+- Runs only on Stellar Testnet
+- Secret keys are exposed for demo purposes
+- Do NOT use mainnet keys
+- Freighter support is optional
 
 ### 🧠 Design Choice
-
 For demo reliability, this app allows direct secret‑key signing on testnet instead of relying on browser wallets.
-
 This ensures:
-
-1. No extension issues
-
-2. Predictable behavior
-
-3. Smooth judge experience
+- No extension issues
+- Predictable behavior
+- Smooth judge experience
 
 ### 📌 Future Improvements
-1. Mainnet support
-
-2. Freighter‑only signing mode
-
-3. Transaction history
-
-4. Better Soroban value decoding
+- Mainnet support
+- Freighter‑only signing mode
+- Transaction history
+- Better Soroban value decoding
 
 👨‍💻 Author
 Dev Vrat Mishra
-# Built with ❤️ using Stellar & Soroban
+### Built with ❤️ using Stellar & Soroban
 
