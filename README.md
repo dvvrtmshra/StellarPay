@@ -84,7 +84,7 @@ http://127.0.0.1:8000
 Swagger docs:
 http://127.0.0.1:8000/docs
 ```
-Frontend
+### Frontend
 ```bash
 cd frontend
 npm install
@@ -94,7 +94,7 @@ Frontend runs at:
 ```bash
 http://localhost:5173
 ```
-🧪 Demo Flow
+### 🧪 Demo Flow
 ```bash
 Wallet → Create
 
@@ -126,37 +126,38 @@ Set a value
 
 Get stored value from contract
 ```
-⚠️ Notes
-Runs only on Stellar Testnet
+### ⚠️ Notes
 
-Secret keys are exposed for demo purposes
+1. Runs only on Stellar Testnet
 
-Do NOT use mainnet keys
+2. Secret keys are exposed for demo purposes
 
-Freighter support is optional
+3. Do NOT use mainnet keys
 
-🧠 Design Choice
+4. Freighter support is optional
+
+### 🧠 Design Choice
+
 For demo reliability, this app allows direct secret‑key signing on testnet instead of relying on browser wallets.
 
 This ensures:
 
-No extension issues
+1. No extension issues
 
-Predictable behavior
+2. Predictable behavior
 
-Smooth judge experience
+3. Smooth judge experience
 
-📌 Future Improvements
-Mainnet support
+### 📌 Future Improvements
+1. Mainnet support
 
-Freighter‑only signing mode
+2. Freighter‑only signing mode
 
-Transaction history
+3. Transaction history
 
-Better Soroban value decoding
+4. Better Soroban value decoding
 
 👨‍💻 Author
 Dev Vrat Mishra
-
-Built with ❤️ using Stellar & Soroban
+# Built with ❤️ using Stellar & Soroban
 
