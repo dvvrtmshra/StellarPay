@@ -1,52 +1,216 @@
+/* -------------------- */
+/* RESET */
+/* -------------------- */
 html,
 body,
 #root {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* -------------------- */
+/* BASE THEME */
+/* -------------------- */
 body {
-  background: #020617;
-  color: white;
+  background: #151413; /* lighter charcoal */
+  color: #e7e5e4;
 }
 
+/* -------------------- */
+/* APP CONTAINER */
+/* -------------------- */
 .container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 28px;
 }
 
-input {
-  width: 320px;
-  padding: 10px;
-  background: #020617;
-  color: white;
-  border: 1px solid #334155;
+/* -------------------- */
+/* TITLE */
+/* -------------------- */
+h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #f5f5f4;
 }
 
-button {
-  padding: 10px 18px;
-  background: #2563eb;
-  color: white;
-  border: none;
+/* -------------------- */
+/* TABS */
+/* -------------------- */
+.tabs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  min-width: 88px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #2e2a28;
+  background: #1a1918;
+  color: #a8a29e;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tabs button.active {
+  background: #262220;
+  border-color: #44403c;
+  color: #fafaf9;
+}
+
+.tabs button:hover {
+  background: #211f1d;
+}
+
+/* -------------------- */
+/* CARD */
+/* -------------------- */
+.card {
+  background: #1a1918;
+  padding: 32px;
+  border-radius: 18px;
+  width: 460px;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #2e2a28;
+}
+
+/* Keep everything same width */
+.card > * {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* -------------------- */
+/* CARD TITLE */
+/* -------------------- */
+.card-title {
+  text-align: center;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #e7e5e4;
+}
+
+/* -------------------- */
+/* INPUTS */
+/* -------------------- */
+.field {
+  display: flex;
+  justify-content: center;
+}
+
+.field input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2e2a28;
+  background: #151413;
+  color: #e7e5e4;
+  font-size: 14px;
+}
+
+.field input::placeholder {
+  color: #78716c;
+}
+
+input:focus,
+input:focus-visible {
+  outline: none;
+  border-color: #57534e;
+}
+
+/* -------------------- */
+/* BUTTONS */
+/* -------------------- */
+.card button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2e2a28;
+  background: #211f1d;
+  color: #fafaf9;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
 }
-button:disabled {
-  opacity: 0.5;
+
+.card button:hover:not(:disabled) {
+  background: #2a2624;
+}
+
+.card button:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-
-.row {
-  display: flex;
-  gap: 10px;
+button:focus,
+button:focus-visible {
+  outline: none;
 }
 
+/* -------------------- */
+/* ACTION ROWS (Set / Get spacing FIX) */
+/* -------------------- */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px; /* 🔥 more space between Set & Get */
+  margin-top: 6px;
+}
+
+/* -------------------- */
+/* OUTPUT */
+/* -------------------- */
+pre {
+  background: #151413;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  overflow-x: auto;
+  border: 1px solid #2e2a28;
+  color: #d6d3d1;
+}
+
+/* -------------------- */
+/* ERRORS / SUCCESS */
+/* -------------------- */
 .error {
-  color: #ef4444;
+  color: #fca5a5;
+  text-align: center;
+  font-size: 13px;
+}
+
+.success {
+  color: #86efac;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* -------------------- */
+/* LISTS */
+/* -------------------- */
+ul {
+  margin-top: 8px;
+  padding-left: 0;
+  list-style: none;
+  text-align: center;
+}
+
+li {
+  margin-bottom: 6px;
+  color: #d6d3d1;
 }

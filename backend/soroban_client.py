@@ -6,7 +6,7 @@ from stellar_sdk import (
     SorobanServer,
     scval,
 )
-from stellar_sdk.xdr import SCVal
+from stellar_sdk import xdr
 
 # -----------------------------
 # Network configuration
@@ -15,7 +15,7 @@ HORIZON_URL = "https://horizon-testnet.stellar.org"
 SOROBAN_RPC_URL = "https://soroban-testnet.stellar.org"
 NETWORK_PASSPHRASE = Network.TESTNET_NETWORK_PASSPHRASE
 
-# ✅ Contract deployed with `app`
+# ⚠️ Replace with YOUR deployed contract ID
 CONTRACT_ID = "CB5ARBIGCUCMRT3RBLD53GMGIXLR7O42WXFWCLUBM4UDIIEDSJNF6HSJ"
 
 # -----------------------------
@@ -23,7 +23,6 @@ CONTRACT_ID = "CB5ARBIGCUCMRT3RBLD53GMGIXLR7O42WXFWCLUBM4UDIIEDSJNF6HSJ"
 # -----------------------------
 horizon_server = Server(HORIZON_URL)
 soroban_server = SorobanServer(SOROBAN_RPC_URL)
-
 
 # -----------------------------
 # Invoke: set(value)
@@ -36,31 +35,31 @@ def invoke_set(secret_key: str, value: int):
         TransactionBuilder(
             source_account=account,
             network_passphrase=NETWORK_PASSPHRASE,
-            base_fee=100
+            base_fee=100,
         )
         .append_invoke_contract_function_op(
             contract_id=CONTRACT_ID,
             function_name="set",
-            parameters=[scval.to_int128(value)]
+            parameters=[scval.to_int128(value)],
         )
         .set_timeout(30)
         .build()
     )
 
-    # 🔑 Soroban flow
+    # Soroban simulation + prepare
     simulation = soroban_server.simulate_transaction(tx)
     tx = soroban_server.prepare_transaction(tx, simulation)
 
-    # 🔥 SIGN AFTER prepare
+    # Sign AFTER prepare
     tx.sign(kp)
 
     response = horizon_server.submit_transaction(tx)
 
     return {
+        "status": "success",
         "tx_hash": response["hash"],
-        "status": "value set"
+        "message": "Value set successfully",
     }
-
 
 # -----------------------------
 # Invoke: get()
@@ -73,30 +72,35 @@ def invoke_get(secret_key: str):
         TransactionBuilder(
             source_account=account,
             network_passphrase=NETWORK_PASSPHRASE,
-            base_fee=100
+            base_fee=100,
         )
         .append_invoke_contract_function_op(
             contract_id=CONTRACT_ID,
             function_name="get",
-            parameters=[]
+            parameters=[],
         )
         .set_timeout(30)
         .build()
     )
 
-    # 🔑 Soroban flow
+    # Soroban simulation + prepare
     simulation = soroban_server.simulate_transaction(tx)
     tx = soroban_server.prepare_transaction(tx, simulation)
 
-    # 🔥 SIGN AFTER prepare
+    # Sign AFTER prepare
     tx.sign(kp)
 
     response = horizon_server.submit_transaction(tx)
 
-    # 🔥 DECODE RETURN VALUE (THIS WAS MISSING)
-    scval_result = scval.from_xdr(simulation.results[0].xdr)
+    # ✅ CORRECT DECODING (FIXED)
+    raw_xdr = simulation.results[0].xdr
+    scval_result = xdr.SCVal.from_xdr(raw_xdr)
+
+    # Optional: extract int value cleanly
+    value = scval_result.i128.lo if scval_result.type == xdr.SCValType.SCV_I128 else scval_result
 
     return {
+        "status": "success",
         "tx_hash": response["hash"],
-        "value": scval_result
+        "value": value,
     }

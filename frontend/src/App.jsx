@@ -1,77 +1,48 @@
 import { useState } from "react";
-import { setValue, getValue } from "./api";
+import Soroban from "./components/Soroban";
+import Balance from "./components/Balance";
+import FundWallet from "./components/FundWallet";
+import CreateAccount from "./components/CreateAccount";
+import Wallet from "./components/Wallet";
+
+
 
 export default function App() {
-  const [secret, setSecret] = useState("");
-  const [value, setVal] = useState("");
-  const [stored, setStored] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSet() {
-    setError("");
-    setLoading(true);
-    try {
-      await setValue(secret, value);
-      const res = await getValue(secret);
-      setStored(res.value ?? res);
-    } catch (e) {
-      setError(e.message);
-    }
-    setLoading(false);
-  }
-
-  async function handleGet() {
-    setError("");
-    setLoading(true);
-    try {
-      const res = await getValue(secret);
-      setStored(res.value ?? res);
-    } catch (e) {
-      setError(e.message);
-    }
-    setLoading(false);
-  }
+  const [tab, setTab] = useState("soroban");
 
   return (
     <div className="container">
       <h1>StellarPay</h1>
 
-      <input
-  type="password"
-  placeholder="Secret Key"
-  value={secret}
-  onChange={(e) => setSecret(e.target.value)}
-/>
-
-
-      <input
-        type="number"
-        placeholder="Value"
-        value={value}
-        onChange={(e) => setVal(e.target.value)}
-      />
-
-      <div className="row">
+      {/* Tabs */}
+      <div className="tabs">
         <button
-  onClick={handleSet}
-  disabled={loading || !secret}
->
-  Set
-</button>
+          className={tab === "soroban" ? "active" : ""}
+          onClick={() => setTab("soroban")}
+        >
+          Soroban
+        </button>
 
-<button
-  onClick={handleGet}
-  disabled={loading || !secret}
->
-  Get
-</button>
+        <button
+          className={tab === "balance" ? "active" : ""}
+          onClick={() => setTab("balance")}
+        >
+          Balance
+        </button>
 
+        <button
+          className={tab === "wallet" ? "active" : ""}
+          onClick={() => setTab("wallet")}
+        >
+          Wallet
+        </button>
       </div>
 
-      {loading && <p>Processing...</p>}
-      {stored !== null && <p>Stored Value: {stored}</p>}
-      {error && <p className="error">{error}</p>}
+      {/* Content */}
+      {tab === "soroban" && <Soroban />}
+      {tab === "balance" && <Balance />}
+      {tab === "wallet" && <Wallet />}
+
     </div>
   );
 }

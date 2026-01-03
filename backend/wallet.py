@@ -1,8 +1,11 @@
-from stellar_sdk import Keypair, Server, Network
+from fastapi import APIRouter, HTTPException
+from stellar_sdk import Keypair, Server
 import requests
 
+router = APIRouter(prefix="/wallet", tags=["wallet"])
 server = Server("https://horizon-testnet.stellar.org")
 
+@router.post("/create")
 def create_wallet():
     keypair = Keypair.random()
     return {
@@ -10,12 +13,20 @@ def create_wallet():
         "secret_key": keypair.secret
     }
 
-def fund_wallet(public_key):
-    url = f"https://friendbot.stellar.org?addr={public_key}"
-    r = requests.get(url)
-    r.raise_for_status()
-    return {"status": "funded"}
+@router.post("/fund")
+def fund_wallet(public_key: str):
+    url = f"https://friendbot.stellar.org/?addr={public_key}"
+    res = requests.get(url)
 
-def get_balance(public_key):
+    if res.status_code != 200:
+        raise HTTPException(status_code=400, detail="Funding failed")
+
+    return {
+        "status": "success",
+        "message": "Wallet funded on testnet"
+    }
+
+@router.get("/balance")
+def get_balance(public_key: str):
     account = server.accounts().account_id(public_key).call()
     return account["balances"]

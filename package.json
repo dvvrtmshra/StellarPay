@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@stellar/freighter-api": "^6.0.1",
+    "stellar-sdk": "^13.3.0"
+  }
+}
